@@ -1,0 +1,4147 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bidang Transmigrasi Kabupaten Sijunjung</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="shotcut icon" href="img/icon.jpeg" type="image/x-icon" />
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Chart.js (untuk dashboard) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Tailwind (untuk dashboard) -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+    <style>
+      /* ================================================================
+   KONFIGURASI APPS SCRIPT — ganti sesuai deployment Anda
+   ================================================================ */
+      /* (Diset via JS di bawah) */
+
+      /* ================================================================
+   GLOBAL RESET
+   ================================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 62.5%;
+      }
+
+      /* ================================================================
+   HALAMAN: LANDING PAGE  (font Poppins, dark, bg.jpg)
+   ================================================================ */
+      :root {
+        --primary: #b6895b;
+        --bg: #010101;
+      }
+
+      /* --- Shared body base --- */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+      }
+
+      /* ---- NAVBAR (Landing) ---- */
+      .lp-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.4rem 7%;
+        background-color: rgba(1, 1, 1, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid #513c28;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        transition:
+          background-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .lp-navbar .navbar-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        font-style: italic;
+        letter-spacing: 0.02em;
+      }
+      .lp-navbar .navbar-logo span {
+        color: var(--primary);
+      }
+      .lp-navbar .navbar-nav {
+        display: flex;
+        align-items: center;
+      }
+      .lp-navbar .navbar-nav a {
+        color: #fff;
+        display: inline-block;
+        font-size: 1.3rem;
+        margin: 0 1rem;
+        position: relative;
+        transition: color 0.2s ease;
+      }
+      .lp-navbar .navbar-nav a:hover {
+        color: var(--primary);
+      }
+      .lp-navbar .navbar-nav a::after {
+        content: "";
+        display: block;
+        padding-bottom: 0.5rem;
+        border-bottom: 0.1rem solid var(--primary);
+        transform: scaleX(0);
+        transition: 0.2s linear;
+      }
+      .lp-navbar .navbar-nav a:hover::after {
+        transform: scaleX(0.5);
+      }
+      .lp-navbar .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .lp-navbar .navbar-extra a {
+        color: #fff;
+        margin: 0 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease;
+      }
+      .lp-navbar .navbar-extra a:hover {
+        color: var(--primary);
+      }
+      #hamburger-menu {
+        display: none;
+        cursor: pointer;
+        color: #fff;
+        transition: color 0.2s ease;
+      }
+      #hamburger-menu:hover {
+        color: var(--primary);
+      }
+
+      /* ---- BERANDA ---- */
+      .beranda {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background-image: url("img/bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .beranda::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 40%;
+        bottom: -15px;
+        background: linear-gradient(
+          0deg,
+          rgba(1, 1, 3, 1) 8%,
+          rgba(255, 255, 255, 0) 55%
+        );
+      }
+      .beranda .content {
+        padding: 1.4rem 7%;
+        max-width: 60rem;
+      }
+      .beranda .content h1 {
+        font-size: 3em;
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(1, 1, 1, 0.5);
+        line-height: 1.2;
+      }
+      .beranda .content h1 span {
+        color: var(--primary);
+      }
+      .beranda .content p {
+        font-size: 1.6rem;
+        margin-top: 1rem;
+        line-height: 1.4;
+        font-weight: 100;
+        text-shadow: 1px 1px 3px rgba(1, 1, 1, 0.5);
+      }
+      .beranda .content .cta {
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 1rem 3rem;
+        font-size: 1.4rem;
+        color: #fff;
+        background-color: var(--primary);
+        border-radius: 0.5rem;
+        cursor: pointer;
+      }
+
+      /* ---- ABOUT, DAERAH, CONTACT ---- */
+      .about,
+      .daerah,
+      .contact {
+        padding: 8rem 7% 1.4rem;
+      }
+      .about h2,
+      .daerah h2,
+      .contact h2 {
+        text-align: center;
+        font-size: 2.6rem;
+        margin-bottom: 3rem;
+      }
+      .about h2 span,
+      .daerah h2 span,
+      .contact h2 span {
+        color: var(--primary);
+      }
+
+      .about .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+      .about .row .about-img {
+        flex: 1 1 35rem;
+        min-width: 0;
+      }
+      .about .row .about-img img {
+        width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        display: block;
+      }
+      .about .row .content {
+        flex: 1 1 30rem;
+        min-width: 0;
+        padding: 0 1rem;
+      }
+      .about .row .content h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+      .about .row .content p {
+        margin-bottom: 0.8rem;
+        font-size: 1.2rem;
+        font-weight: 100;
+        line-height: 1.6;
+      }
+
+      /* Daerah blocks */
+      .daerah-block {
+        margin-bottom: 4rem;
+      }
+      .daerah-sub-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        border-left: 0.5rem solid var(--primary);
+        padding-left: 1rem;
+        margin-bottom: 2rem;
+      }
+      .daerah-periode {
+        font-size: 1.1rem;
+        color: #aaa;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        margin-top: -1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .daerah-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+      .daerah-info-card {
+        background: #1a1a1a;
+        border: 1px solid #3a2a18;
+        border-radius: 1rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .daerah-info-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-3px);
+      }
+      .daerah-info-card svg {
+        color: var(--primary);
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+      }
+      .daerah-info-card h4 {
+        font-size: 1rem;
+        color: #aaa;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        margin-bottom: 0.5rem;
+      }
+      .daerah-info-card p {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+      }
+
+      .daerah-desc p {
+        font-size: 1.2rem;
+        font-weight: 100;
+        line-height: 1.8;
+        color: #ddd;
+        margin-bottom: 1rem;
+      }
+
+      .trans-box {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        background: #1a1a1a;
+        border-left: 0.5rem solid var(--primary);
+        border-radius: 1rem;
+        padding: 2.5rem 2rem;
+      }
+      .trans-icon {
+        flex-shrink: 0;
+      }
+      .trans-icon svg {
+        color: var(--primary);
+        width: 4rem;
+        height: 4rem;
+      }
+      .trans-text p {
+        font-size: 1.2rem;
+        font-weight: 100;
+        line-height: 1.8;
+        color: #ddd;
+        margin-bottom: 1rem;
+      }
+      .trans-text p:last-child {
+        margin-bottom: 0;
+      }
+      .trans-text strong {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .pimpinan-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 3rem;
+      }
+      .pimpinan-card {
+        background: #1a1a1a;
+        border: 1px solid #3a2a18;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .pimpinan-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-4px);
+      }
+      .pimpinan-img-wrap {
+        width: 100%;
+        overflow: hidden;
+        background: #111;
+        position: relative;
+      }
+      .pimpinan-img-wrap img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .pimpinan-img-fallback {
+        display: none;
+        width: 100%;
+        min-height: 20rem;
+        align-items: center;
+        justify-content: center;
+        background: #222;
+      }
+      .pimpinan-img-fallback svg {
+        width: 8rem;
+        height: 8rem;
+        color: #555;
+      }
+      .pimpinan-body {
+        padding: 2rem 2.5rem;
+      }
+      .pimpinan-badge {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08rem;
+        border-radius: 2rem;
+        padding: 0.3rem 1.2rem;
+        margin-bottom: 1rem;
+      }
+      .pimpinan-body h4 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+      .pimpinan-body p {
+        font-size: 1.15rem;
+        font-weight: 100;
+        line-height: 1.8;
+        color: #ccc;
+        margin-bottom: 0.8rem;
+      }
+
+      /* Contact */
+      .contact h2 {
+        margin-bottom: 1rem;
+      }
+      .contact p {
+        text-align: center;
+        max-width: 30rem;
+        margin: auto;
+        font-weight: 100;
+        line-height: 1.6;
+      }
+      .contact .row2 {
+        margin-top: 2rem;
+        background: #222;
+        flex-wrap: wrap;
+        display: flex;
+      }
+      .contact .row2 form {
+        flex: 1 1 45rem;
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+      .contact .row2 form .input-group {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+        background: var(--bg);
+        border: 1px solid #eee;
+        padding-left: 2rem;
+      }
+      .contact .row2 form .input-group input {
+        width: 100%;
+        padding: 2rem;
+        font-size: 1.7rem;
+        background: none;
+        color: #fff;
+      }
+      .contact .row2 form .btn {
+        margin-top: 3rem;
+        display: inline-block;
+        padding: 1rem 3rem;
+        font-size: 1.7rem;
+        color: #fff;
+        background: var(--primary);
+        cursor: pointer;
+      }
+      .contact .map-container {
+        flex: 1 1 45rem;
+        width: 100%;
+        margin-top: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      .contact .map-container iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--primary);
+        text-align: center;
+        padding: 1rem 0.3rem;
+        margin-top: 3rem;
+      }
+      footer .socials {
+        padding: 1rem 0;
+      }
+      footer .socials a {
+        color: #fff;
+        margin: 1rem;
+      }
+      footer .socials a:hover,
+      footer .links a:hover {
+        color: var(--bg);
+      }
+      footer .links {
+        margin-bottom: 1.4rem;
+      }
+      footer .links a {
+        color: #fff;
+        padding: 0.7rem 1rem;
+      }
+      footer .credit {
+        font-size: 0.8rem;
+      }
+      footer .credit a {
+        color: var(--bg);
+        font-weight: 900;
+      }
+
+      /* ================================================================
+   HALAMAN: LOGIN  (font Plus Jakarta Sans, dark gold)
+   ================================================================ */
+      #page-login {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        min-height: 100vh;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: #09090b;
+        background-image:
+          linear-gradient(rgba(201, 151, 74, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(201, 151, 74, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+      #page-login .login-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 2rem;
+        background: rgba(9, 9, 11, 0.85);
+        border-bottom: 1px solid rgba(201, 151, 74, 0.1);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+      }
+      #page-login .login-navbar .nav-logo {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #e8c98a;
+        letter-spacing: -0.02em;
+      }
+      #page-login .login-navbar .nav-logo span {
+        color: #c9974a;
+      }
+      #page-login .login-navbar .nav-home {
+        color: rgba(232, 201, 138, 0.55);
+        display: flex;
+        align-items: center;
+        transition: color 0.2s;
+      }
+      #page-login .login-navbar .nav-home:hover {
+        color: #c9974a;
+      }
+
+      #page-login .login-card {
+        width: 100%;
+        max-width: 400px;
+        background: #111113;
+        border: 1px solid rgba(201, 151, 74, 0.1);
+        border-radius: 1.5rem;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+        animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        margin-top: 4rem;
+      }
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      #page-login .login-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 1rem;
+        background: rgba(201, 151, 74, 0.15);
+        border: 1px solid rgba(201, 151, 74, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+      }
+      #page-login h1 {
+        font-size: 1.35rem;
+        font-weight: 800;
+        text-align: center;
+        color: #c9974a;
+      }
+      #page-login .login-sub {
+        font-size: 0.8rem;
+        text-align: center;
+        color: rgba(232, 201, 138, 0.55);
+        margin: 0.35rem 0 2rem;
+      }
+
+      #page-login .fg {
+        margin-bottom: 1.1rem;
+      }
+      #page-login label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: rgba(232, 201, 138, 0.55);
+        margin-bottom: 0.5rem;
+      }
+      #page-login .iw {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      #page-login .ii {
+        position: absolute;
+        left: 0.85rem;
+        color: rgba(232, 201, 138, 0.55);
+        pointer-events: none;
+        display: flex;
+      }
+      #page-login input[type="text"],
+      #page-login input[type="password"] {
+        width: 100%;
+        background: rgba(201, 151, 74, 0.08);
+        border: 1px solid rgba(201, 151, 74, 0.2);
+        border-radius: 0.75rem;
+        color: #e8c98a;
+        font-family: inherit;
+        font-size: 0.875rem;
+        padding: 0.7rem 1rem 0.7rem 2.5rem;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      #page-login input:focus {
+        border-color: #c9974a;
+        box-shadow: 0 0 0 3px rgba(201, 151, 74, 0.12);
+      }
+      #page-login input::placeholder {
+        color: rgba(232, 201, 138, 0.55);
+      }
+      #page-login .eye {
+        position: absolute;
+        right: 0.85rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: rgba(232, 201, 138, 0.55);
+        display: flex;
+        transition: color 0.2s;
+      }
+      #page-login .eye:hover {
+        color: #c9974a;
+      }
+
+      #page-login .login-err {
+        background: rgba(248, 113, 113, 0.08);
+        border: 1px solid rgba(248, 113, 113, 0.25);
+        border-radius: 0.75rem;
+        padding: 0.65rem 1rem;
+        font-size: 0.8rem;
+        color: #f87171;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.2rem;
+        animation: shake 0.35s ease;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-6px);
+        }
+        40%,
+        80% {
+          transform: translateX(6px);
+        }
+      }
+
+      #page-login .login-btn {
+        width: 100%;
+        background: #c9974a;
+        color: #09090b;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.8rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition:
+          background 0.2s,
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+      #page-login .login-btn:hover {
+        background: #e8c98a;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(201, 151, 74, 0.3);
+      }
+      #page-login .login-note {
+        text-align: center;
+        font-size: 0.72rem;
+        color: rgba(232, 201, 138, 0.55);
+        margin-top: 1.75rem;
+        line-height: 1.6;
+      }
+      #page-login .login-copy {
+        margin-top: 2rem;
+        font-size: 0.72rem;
+        color: rgba(232, 201, 138, 0.55);
+      }
+
+      /* ================================================================
+   HALAMAN: DASHBOARD (up1.php — font Plus Jakarta Sans)
+   ================================================================ */
+      #page-dashboard {
+        display: none;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+
+      /* CSS variabel dashboard */
+      #page-dashboard {
+        --gold: #c9974a;
+        --gold-light: #e8c98a;
+        --gold-dim: rgba(201, 151, 74, 0.15);
+        --gold-dim2: rgba(201, 151, 74, 0.08);
+        --bg-d: #09090b;
+        --surface: #111113;
+        --surface2: #18181b;
+        --border: rgba(201, 151, 74, 0.18);
+        --border2: rgba(201, 151, 74, 0.1);
+        --text: #e8c98a;
+        --text-dim: rgba(232, 201, 138, 0.55);
+        --red: #f87171;
+        --green: #6ee7b7;
+      }
+      #page-dashboard.light-mode {
+        --gold: #a0722a;
+        --gold-light: #7a5520;
+        --gold-dim: rgba(160, 114, 42, 0.15);
+        --gold-dim2: rgba(160, 114, 42, 0.07);
+        --bg-d: #faf8f4;
+        --surface: #ffffff;
+        --surface2: #f5f0e8;
+        --border: rgba(0, 0, 0, 0.15);
+        --border2: rgba(0, 0, 0, 0.08);
+        --text: #000000;
+        --text-dim: #000000;
+        --red: #dc2626;
+        --green: #16a34a;
+      }
+
+      #page-dashboard * {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        box-sizing: border-box;
+      }
+      #page-dashboard {
+        background: var(--bg-d);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      #page-dashboard.light-mode {
+        background: #faf8f4;
+      }
+      #page-dashboard.light-mode *:not(i[data-lucide]) {
+        color: #000;
+      }
+      #page-dashboard.light-mode h1,
+      #page-dashboard.light-mode h2,
+      #page-dashboard.light-mode h3 {
+        color: #000 !important;
+      }
+
+      /* Sidebar */
+      #dash-sidebar {
+        background: var(--surface);
+        border-right: 1px solid var(--border2);
+        width: 15rem;
+        flex-shrink: 0;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #page-dashboard.light-mode #dash-sidebar {
+        background: #fff;
+      }
+
+      .d-nav-btn {
+        color: var(--text-dim);
+        transition: all 0.2s;
+        border-radius: 0.5rem;
+      }
+      .d-nav-btn:hover {
+        background: var(--gold-dim2);
+        color: var(--text);
+      }
+      .d-nav-btn.active {
+        background: var(--gold-dim);
+        color: var(--gold);
+        font-weight: 600;
+      }
+      #page-dashboard.light-mode .d-nav-btn {
+        color: #000;
+      }
+      #page-dashboard.light-mode .d-nav-btn.active {
+        color: var(--gold);
+      }
+
+      /* Inputs */
+      .d-field {
+        background: var(--gold-dim2);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 0.75rem;
+        padding: 0.65rem 1rem;
+        font-size: 0.875rem;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .d-field:focus {
+        border-color: var(--gold);
+      }
+      .d-field::placeholder {
+        color: var(--text-dim);
+      }
+      select.d-field option {
+        background: #18181b;
+        color: #e8c98a;
+      }
+      #page-dashboard.light-mode .d-field {
+        color: #000;
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.15);
+      }
+      #page-dashboard.light-mode .d-field::placeholder {
+        color: rgba(0, 0, 0, 0.45);
+      }
+      #page-dashboard.light-mode select.d-field option {
+        background: #fff;
+        color: #000;
+      }
+
+      /* Buttons */
+      .d-btn-primary {
+        background: var(--gold);
+        color: #09090b;
+        font-weight: 700;
+        border-radius: 0.75rem;
+        padding: 0.7rem 1.5rem;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        border: none;
+        cursor: pointer;
+      }
+      .d-btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+      .d-btn-primary:disabled {
+        opacity: 0.5;
+        transform: none;
+        cursor: not-allowed;
+      }
+      .d-btn-ghost {
+        background: var(--gold-dim2);
+        color: var(--text-dim);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 0.65rem 1.2rem;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .d-btn-ghost:hover {
+        color: var(--text);
+        border-color: var(--gold);
+      }
+      #page-dashboard.light-mode .d-btn-ghost {
+        color: #000;
+        border-color: rgba(0, 0, 0, 0.18);
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .d-btn-jk {
+        background: var(--gold-dim2);
+        color: var(--text-dim);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        flex: 1;
+        padding: 0.65rem;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .d-btn-jk.selected {
+        background: var(--gold);
+        color: #09090b;
+        font-weight: 600;
+        border-color: var(--gold);
+      }
+      .d-btn-jk:hover:not(.selected) {
+        border-color: var(--gold);
+      }
+
+      /* Cards */
+      .d-card {
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: 1.25rem;
+      }
+      .d-stat-card {
+        background: var(--gold-dim2);
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        transition: all 0.2s;
+      }
+      .d-stat-card:hover {
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+      #page-dashboard.light-mode .d-card {
+        background: #f5f0e8;
+      }
+      #page-dashboard.light-mode .d-stat-card {
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+
+      /* Drop zone */
+      .d-drop-zone {
+        background: var(--gold-dim2);
+        border: 2px dashed var(--border);
+        border-radius: 1.25rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .d-drop-zone:hover,
+      .d-drop-zone.dragover {
+        border-color: var(--gold);
+        background: var(--gold-dim);
+      }
+
+      /* Table */
+      .d-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .d-table th {
+        background: var(--gold-dim);
+        color: var(--gold);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+      .d-table td {
+        padding: 0.7rem 1rem;
+        font-size: 0.875rem;
+        border-bottom: 1px solid var(--border2);
+      }
+      .d-table tr:hover td {
+        background: var(--gold-dim2);
+      }
+      #page-dashboard.light-mode .d-table th {
+        background: var(--gold-dim);
+        color: var(--gold);
+      }
+      #page-dashboard.light-mode .d-table td {
+        color: #000;
+        border-bottom-color: rgba(0, 0, 0, 0.08);
+      }
+
+      /* Toast */
+      #d-toast {
+        background: var(--gold);
+        color: #09090b;
+        font-weight: 600;
+        border-radius: 0.75rem;
+        padding: 0.85rem 1.4rem;
+        font-size: 0.875rem;
+        box-shadow: 0 8px 32px rgba(201, 151, 74, 0.35);
+        max-width: 340px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      #d-toast.error {
+        background: var(--red);
+        color: #fff;
+      }
+      #page-dashboard.light-mode #d-toast {
+        box-shadow: 0 8px 32px rgba(160, 114, 42, 0.25);
+      }
+
+      /* Animations */
+      .d-fade-in {
+        animation: dFadeIn 0.3s ease;
+      }
+      @keyframes dFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .d-slide-up {
+        animation: dSlideUp 0.25s ease;
+      }
+      @keyframes dSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Scrollbar */
+      #page-dashboard ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      #page-dashboard ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+
+      /* Mono */
+      .d-mono {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8em;
+      }
+      #page-dashboard.light-mode .d-mono {
+        color: #000;
+      }
+
+      /* Spinner */
+      .d-spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border);
+        border-top-color: var(--gold);
+        border-radius: 50%;
+        animation: dSpin 0.7s linear infinite;
+        display: inline-block;
+      }
+      @keyframes dSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Modal */
+      .d-modal-backdrop {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(4px);
+      }
+      .d-modal-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+      }
+      #page-dashboard.light-mode .d-modal-box {
+        background: #f5f0e8;
+      }
+      #page-dashboard.light-mode .d-modal-backdrop {
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      /* Badge */
+      .d-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .d-badge-ya {
+        background: rgba(110, 231, 183, 0.15);
+        color: var(--green);
+      }
+      .d-badge-tidak {
+        background: rgba(248, 113, 113, 0.1);
+        color: var(--red);
+      }
+      .d-badge-l {
+        background: rgba(96, 165, 250, 0.12);
+        color: #93c5fd;
+      }
+      .d-badge-p {
+        background: rgba(244, 114, 182, 0.12);
+        color: #f9a8d4;
+      }
+      #page-dashboard.light-mode .d-badge-ya {
+        background: rgba(22, 163, 74, 0.12);
+        color: #16a34a;
+      }
+      #page-dashboard.light-mode .d-badge-tidak {
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+      }
+      #page-dashboard.light-mode .d-badge-l {
+        background: rgba(37, 99, 235, 0.1);
+        color: #1d4ed8;
+      }
+      #page-dashboard.light-mode .d-badge-p {
+        background: rgba(219, 39, 119, 0.1);
+        color: #be185d;
+      }
+
+      /* ================================================================
+   RESPONSIVE — Landing page
+   ================================================================ */
+      @media (max-width: 1366px) {
+        html {
+          font-size: 75%;
+        }
+      }
+      @media (max-width: 768px) {
+        html {
+          font-size: 62.5%;
+        }
+        #hamburger-menu {
+          display: inline-block;
+        }
+        .lp-navbar .navbar-nav {
+          position: absolute;
+          top: 100%;
+          right: -100%;
+          background-color: #fff;
+          width: 30rem;
+          height: 100vh;
+          transition: 0.3s;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1.5rem 2rem;
+          gap: 0.5rem;
+          box-shadow: -4px 0 24px rgba(0, 0, 0, 0.18);
+        }
+        .lp-navbar .navbar-nav.active {
+          right: 0;
+        }
+        .lp-navbar .navbar-nav a {
+          color: #010101;
+          display: block;
+          font-size: 2rem;
+          padding: 0.5rem;
+          margin: 0;
+          width: 100%;
+        }
+        .lp-navbar .navbar-nav a::after {
+          border-bottom-color: var(--primary);
+        }
+        .about .row {
+          flex-direction: column;
+        }
+        .trans-box {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .pimpinan-grid {
+          grid-template-columns: 1fr;
+        }
+        .daerah-info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .contact .row2 {
+          flex-wrap: wrap;
+        }
+        .contact .row2 form {
+          padding-top: 0;
+        }
+      }
+      @media (max-width: 450px) {
+        html {
+          font-size: 55%;
+        }
+        #hamburger-menu {
+          display: inline-block;
+        }
+        .lp-navbar .navbar-nav {
+          position: absolute;
+          top: 100%;
+          right: -100%;
+          background-color: #fff;
+          width: 30rem;
+          height: 100vh;
+          transition: 0.3s;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1.5rem 2rem;
+          gap: 0.5rem;
+          box-shadow: -4px 0 24px rgba(0, 0, 0, 0.18);
+        }
+        .lp-navbar .navbar-nav.active {
+          right: 0;
+        }
+        .lp-navbar .navbar-nav a {
+          color: #010101;
+          display: block;
+          font-size: 2rem;
+          padding: 0.5rem;
+          margin: 0;
+          width: 100%;
+        }
+        .lp-navbar .navbar-nav a::after {
+          border-bottom-color: var(--primary);
+        }
+        .daerah-info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .contact .row2 {
+          flex-wrap: wrap;
+        }
+        .contact .map-container iframe {
+          height: 280px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================================================================
+     HALAMAN 1: LANDING PAGE
+     ================================================================ -->
+    <div id="page-landing">
+      <!-- Navbar -->
+      <nav class="lp-navbar">
+        <a href="#" class="navbar-logo">Transmigrasi<span>Sijunjung</span>.</a>
+        <div class="navbar-nav">
+          <a href="#beranda">Beranda</a>
+          <a href="#about">Tentang Kami</a>
+          <a href="#daerah">Tentang Daerah</a>
+          <a href="#contact">Kontak</a>
+        </div>
+        <div class="navbar-extra">
+          <a
+            href="#"
+            id="info"
+            onclick="
+              showLogin();
+              return false;
+            "
+            ><i data-feather="info"></i
+          ></a>
+          <a
+            href="#"
+            id="user"
+            onclick="
+              showLogin();
+              return false;
+            "
+            ><i data-feather="user"></i
+          ></a>
+          <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+        </div>
+      </nav>
+
+      <!-- Beranda -->
+      <section class="beranda" id="beranda">
+        <main class="content">
+          <h1>
+            Selamat Datang di <span>Bidang Transmigrasi</span> Kabupaten
+            Sijunjung
+          </h1>
+          <p>Bersama Transmigrasi Membangun Negeri</p>
+          <a
+            href="#"
+            class="cta"
+            onclick="
+              showLogin();
+              return false;
+            "
+            >Lets Go</a
+          >
+        </main>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+        <div class="row">
+          <div class="about-img">
+            <img src="img/about2.jpeg" alt="Tentang Kami" />
+          </div>
+          <div class="content">
+            <h3>Salam Transmigrasi</h3>
+            <p>
+              Bidang Transmigrasi Kabupaten Sijunjung bertugas melaksanakan
+              pengelolaan dan pengembangan kawasan transmigrasi serta mendukung
+              pemberdayaan masyarakat transmigran. Kami berkomitmen memberikan
+              pelayanan yang profesional dan berkualitas guna mendorong
+              terwujudnya kawasan transmigrasi yang maju, produktif, dan
+              berkelanjutan.
+            </p>
+            <p>
+              Melalui pengelolaan data yang baik, penyebaran informasi yang
+              efektif, dan pemanfaatan teknologi informasi, kami berupaya
+              meningkatkan kesejahteraan masyarakat serta mendukung pembangunan
+              kawasan transmigrasi yang mandiri dan sejahtera di Kabupaten
+              Sijunjung.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Daerah -->
+      <section id="daerah" class="daerah">
+        <h2><span>Tentang</span> Daerah</h2>
+
+        <!-- Profil Kabupaten -->
+        <div class="daerah-block">
+          <h3 class="daerah-sub-title">Profil Kabupaten Sijunjung</h3>
+          <div class="daerah-info-grid">
+            <div class="daerah-info-card">
+              <div style="display: flex; justify-content: center">
+                <i data-feather="map-pin"></i>
+              </div>
+              <h4>Ibu Kota</h4>
+              <p>Muaro Sijunjung</p>
+            </div>
+            <div class="daerah-info-card">
+              <div style="display: flex; justify-content: center">
+                <i data-feather="map"></i>
+              </div>
+              <h4>Luas Wilayah</h4>
+              <p>3.130,40 km²</p>
+            </div>
+            <div class="daerah-info-card">
+              <div style="display: flex; justify-content: center">
+                <i data-feather="users"></i>
+              </div>
+              <h4>Jumlah Penduduk</h4>
+              <p>±249.821 jiwa (2025)</p>
+            </div>
+            <div class="daerah-info-card">
+              <div style="display: flex; justify-content: center">
+                <i data-feather="grid"></i>
+              </div>
+              <h4>Wilayah Administrasi</h4>
+              <p>8 Kecamatan, 61 Nagari</p>
+            </div>
+          </div>
+          <div class="daerah-desc">
+            <p>
+              Kabupaten Sijunjung adalah salah satu kabupaten di Provinsi
+              Sumatera Barat, Indonesia, yang sebelumnya bernama Kabupaten
+              Sawahlunto/Sijunjung hingga tahun 2008. Wilayah ini terletak di
+              rangkaian Bukit Barisan yang memanjang dari arah barat laut ke
+              tenggara, menjadikannya daerah dengan topografi yang beragam dan
+              kaya potensi alam.
+            </p>
+            <p>
+              Di dalam wilayah Kabupaten Sijunjung terdapat kawasan Sumpur Kudus
+              yang memiliki peranan penting dalam sejarah Kerajaan Pagaruyung,
+              salah satu kerajaan besar di Nusantara. Selain itu, kabupaten ini
+              juga memiliki Geopark Silokek yang menawarkan kekayaan geologi,
+              sejarah, dan keanekaragaman hayati bagi para pengunjung.
+            </p>
+          </div>
+        </div>
+
+        <!-- Transmigrasi -->
+        <div class="daerah-block">
+          <h3 class="daerah-sub-title">Tentang Transmigrasi</h3>
+          <div class="trans-box">
+            <div class="trans-icon"><i data-feather="home"></i></div>
+            <div class="trans-text">
+              <p>
+                <strong>Transmigrasi</strong> adalah program perpindahan
+                penduduk yang difasilitasi oleh pemerintah dari daerah yang
+                padat penduduknya ke daerah yang masih jarang penduduknya,
+                dengan tujuan pemerataan pembangunan dan peningkatan
+                kesejahteraan masyarakat di seluruh wilayah Indonesia.
+              </p>
+              <p>
+                Di Kabupaten Sijunjung, program transmigrasi dikelola oleh
+                Bidang Transmigrasi di bawah Dinas Ketenagakerjaan dan
+                Transmigrasi. Program ini bertujuan untuk mengembangkan kawasan
+                transmigrasi yang produktif, mandiri, dan berkelanjutan,
+                sekaligus mendorong pertumbuhan ekonomi daerah melalui
+                pemberdayaan masyarakat transmigran.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pimpinan -->
+        <div class="daerah-block">
+          <h3 class="daerah-sub-title">Pimpinan Daerah</h3>
+          <p class="daerah-periode">Periode 2025 – 2030</p>
+          <div class="pimpinan-grid">
+            <div class="pimpinan-card">
+              <div class="pimpinan-img-wrap">
+                <img
+                  src="img/bupati.jpg"
+                  alt="Bupati Sijunjung - Benny Dwifa Yuswir"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div class="pimpinan-img-fallback">
+                  <i data-feather="user"></i>
+                </div>
+              </div>
+              <div class="pimpinan-body">
+                <span class="pimpinan-badge">Bupati Sijunjung</span>
+                <h4>Benny Dwifa Yuswir</h4>
+                <p>
+                  Benny Dwifa Yuswir merupakan Bupati Kabupaten Sijunjung
+                  periode 2025–2030. Beliau memimpin penyelenggaraan
+                  pemerintahan daerah dengan fokus pada peningkatan kualitas
+                  pelayanan publik, pembangunan infrastruktur, penguatan
+                  perekonomian masyarakat, serta pengembangan sumber daya
+                  manusia.
+                </p>
+                <p>
+                  Di bawah kepemimpinannya, Pemerintah Kabupaten Sijunjung terus
+                  berupaya mewujudkan pembangunan yang berkelanjutan guna
+                  meningkatkan kesejahteraan masyarakat dan kemajuan daerah
+                  Sijunjung.
+                </p>
+              </div>
+            </div>
+
+            <div class="pimpinan-card">
+              <div class="pimpinan-img-wrap">
+                <img
+                  src="img/wabup.jpg"
+                  alt="Wakil Bupati Sijunjung - H. Iraddatillah"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div class="pimpinan-img-fallback">
+                  <i data-feather="user"></i>
+                </div>
+              </div>
+              <div class="pimpinan-body">
+                <span class="pimpinan-badge">Wakil Bupati Sijunjung</span>
+                <h4>H. Iraddatillah, S.Pt.</h4>
+                <p>
+                  H. Iraddatillah, S.Pt. merupakan Wakil Bupati Kabupaten
+                  Sijunjung periode 2025–2030. Lahir di Pematang Panjang pada 11
+                  Oktober 1975, beliau dikenal sebagai putra daerah yang
+                  berprestasi dan memiliki jiwa kepemimpinan yang kuat.
+                </p>
+                <p>
+                  Beliau merupakan politisi berpengalaman yang pernah menjabat
+                  sebagai Anggota DPRD Kabupaten Sijunjung selama lebih dari 15
+                  tahun serta aktif di bidang pertanian dan pemberdayaan
+                  masyarakat. Pasangan Benny–Iraddatillah terpilih dengan
+                  perolehan 57.348 suara (54,54%) pada Pilkada 2024.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kontak -->
+      <section id="contact" class="contact">
+        <h2><span>Kontak</span> Kami</h2>
+        <p>Hubungi Kami Melalui</p>
+        <div class="row2">
+          <form action="" onsubmit="return false;">
+            <div class="input-group">
+              <i data-feather="user"></i
+              ><input type="text" placeholder="Nama" />
+            </div>
+            <div class="input-group">
+              <i data-feather="mail"></i
+              ><input type="text" placeholder="Email" />
+            </div>
+            <div class="input-group">
+              <i data-feather="phone"></i
+              ><input type="text" placeholder="No. Hp" />
+            </div>
+            <button type="submit" class="btn">Kirim Pesan</button>
+          </form>
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.5505421831303!2d100.93439857397047!3d-0.663821135260507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2b219347f5338d%3A0xc8b8c4460219ba67!2sDinas%20Ketenagakerjaan%20dan%20Transmigrasi%20Kabupeten%20Sijunjung!5e0!3m2!1sid!2sid!4v1778238471193!5m2!1sid!2sid"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="socials">
+          <a
+            href="https://www.instagram.com/transmigrasisijunjung?igsh=MzhuclscHd3Z2hk"
+            ><div
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <i data-feather="instagram"></i></div
+          ></a>
+          <a href="https://wa.me/6281368334681"
+            ><div
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <i data-feather="phone"></i></div
+          ></a>
+        </div>
+        <div class="links">
+          <a href="#beranda">Beranda</a>
+          <a href="#about">Tentang Kami</a>
+          <a href="#daerah">Tentang Daerah</a>
+          <a href="#contact">Kontak</a>
+        </div>
+        <div class="credit">
+          <p>Created by <a href="">Alvin Jonanthan</a> | &copy; 2026</p>
+        </div>
+      </footer>
+    </div>
+    <!-- /page-landing -->
+
+    <!-- ================================================================
+     HALAMAN 2: LOGIN
+     ================================================================ -->
+    <div id="page-login">
+      <nav class="login-navbar">
+        <span class="nav-logo">Transmigrasi<span>Sijunjung</span>.</span>
+        <a
+          href="#"
+          class="nav-home"
+          onclick="
+            showLanding();
+            return false;
+          "
+          title="Kembali ke Beranda"
+        >
+          <i data-lucide="home" style="width: 18px; height: 18px"></i>
+        </a>
+      </nav>
+
+      <div class="login-card">
+        <div class="login-logo">
+          <i
+            data-lucide="landmark"
+            style="width: 26px; height: 26px; color: #c9974a"
+          ></i>
+        </div>
+        <h1>LOGIN</h1>
+        <p class="login-sub">
+          TransmigrasiSijunjung &nbsp;·&nbsp; Masuk untuk melanjutkan
+        </p>
+
+        <div id="login-err" class="login-err" style="display: none">
+          <i
+            data-lucide="alert-circle"
+            style="width: 15px; height: 15px; flex-shrink: 0"
+          ></i>
+          <span id="login-err-msg">Username atau password salah.</span>
+        </div>
+
+        <div class="fg">
+          <label>Username</label>
+          <div class="iw">
+            <span class="ii"
+              ><i data-lucide="user" style="width: 15px; height: 15px"></i
+            ></span>
+            <input
+              type="text"
+              id="l-user"
+              placeholder="Masukkan Username"
+              autocomplete="username"
+              required
+              autofocus
+            />
+          </div>
+        </div>
+        <div class="fg">
+          <label>Password</label>
+          <div class="iw">
+            <span class="ii"
+              ><i data-lucide="lock" style="width: 15px; height: 15px"></i
+            ></span>
+            <input
+              type="password"
+              id="l-pass"
+              placeholder="Masukkan Password"
+              autocomplete="current-password"
+              required
+              onkeydown="if (event.key === 'Enter') doLogin();"
+            />
+            <button type="button" class="eye" id="eye-btn">
+              <i
+                data-lucide="eye"
+                id="eye-ic"
+                style="width: 15px; height: 15px"
+              ></i>
+            </button>
+          </div>
+        </div>
+        <button class="login-btn" id="login-btn-el" onclick="doLogin()">
+          <i data-lucide="log-in" style="width: 16px; height: 16px"></i>
+          <span id="login-btn-txt">Masuk</span>
+        </button>
+        <p class="login-note">Hubungi administrator jika lupa password.</p>
+      </div>
+
+      <p class="login-copy">© 2026 TransmigrasiSijunjung</p>
+    </div>
+    <!-- /page-login -->
+
+    <!-- ================================================================
+     HALAMAN 3: DASHBOARD (up1.php)
+     ================================================================ -->
+    <div id="page-dashboard">
+      <div
+        class="flex h-screen overflow-hidden"
+        style="height: 100vh; display: flex; overflow: hidden"
+      >
+        <!-- SIDEBAR -->
+        <aside id="dash-sidebar">
+          <div
+            style="
+              padding: 1.5rem 1.25rem;
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              border-bottom: 1px solid var(--border2);
+            "
+          >
+            <div
+              style="
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 0.75rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--gold-dim);
+                border: 1px solid var(--border);
+                flex-shrink: 0;
+              "
+            >
+              <i
+                data-lucide="landmark"
+                style="width: 20px; height: 20px; color: var(--gold)"
+              ></i>
+            </div>
+            <div>
+              <p
+                style="
+                  font-weight: 700;
+                  font-size: 0.875rem;
+                  line-height: 1.25;
+                  color: var(--gold);
+                "
+              >
+                Data Warga
+              </p>
+              <p style="font-size: 0.75rem; color: var(--text-dim)">
+                Kartu Keluarga
+              </p>
+            </div>
+          </div>
+
+          <nav
+            style="
+              flex: 1;
+              padding: 0.75rem;
+              overflow-y: auto;
+              display: flex;
+              flex-direction: column;
+              gap: 0.25rem;
+            "
+          >
+            <button
+              onclick="dGotoPage('input')"
+              id="d-nav-input"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.875rem;
+                text-align: left;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i data-lucide="user-plus" style="width: 16px; height: 16px"></i
+              ><span>Input Data KK</span>
+            </button>
+            <button
+              onclick="dGotoPage('anggota')"
+              id="d-nav-anggota"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.875rem;
+                text-align: left;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i data-lucide="users-2" style="width: 16px; height: 16px"></i
+              ><span>Tambah Anggota</span>
+            </button>
+            <button
+              onclick="dGotoPage('rekap')"
+              id="d-nav-rekap"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.875rem;
+                text-align: left;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i data-lucide="bar-chart-3" style="width: 16px; height: 16px"></i
+              ><span>Rekap &amp; Diagram</span>
+            </button>
+            <button
+              onclick="dGotoPage('cari')"
+              id="d-nav-cari"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.875rem;
+                text-align: left;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i data-lucide="search" style="width: 16px; height: 16px"></i
+              ><span>Cari Data</span>
+            </button>
+            <button
+              onclick="dGotoPage('daftar')"
+              id="d-nav-daftar"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.625rem 0.75rem;
+                font-size: 0.875rem;
+                text-align: left;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i data-lucide="table-2" style="width: 16px; height: 16px"></i
+              ><span>Daftar KK</span>
+            </button>
+          </nav>
+
+          <div
+            style="
+              padding: 0.75rem;
+              border-top: 1px solid var(--border2);
+              display: flex;
+              flex-direction: column;
+              gap: 0.375rem;
+            "
+          >
+            <div
+              id="d-sync-status"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 0.75rem;
+                border-radius: 0.5rem;
+                font-size: 0.75rem;
+                color: var(--text-dim);
+              "
+            >
+              <i data-lucide="cloud" style="width: 13px; height: 13px"></i
+              ><span>Menghubungkan...</span>
+            </div>
+            <button
+              onclick="dRefreshData()"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i
+                data-lucide="refresh-cw"
+                id="d-refresh-icon"
+                style="width: 13px; height: 13px"
+              ></i
+              ><span>Refresh Data</span>
+            </button>
+            <button
+              onclick="dToggleTheme()"
+              id="d-btn-theme"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                background: none;
+                cursor: pointer;
+              "
+            >
+              <i
+                data-lucide="sun"
+                id="d-theme-icon"
+                style="width: 13px; height: 13px"
+              ></i
+              ><span id="d-theme-label">Mode Terang</span>
+            </button>
+            <button
+              onclick="doLogout()"
+              class="d-nav-btn"
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                background: none;
+                cursor: pointer;
+                color: var(--red);
+                margin-top: 0.25rem;
+              "
+            >
+              <i data-lucide="log-out" style="width: 13px; height: 13px"></i
+              ><span>Logout</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main style="flex: 1; overflow-y: auto">
+          <div style="padding: 1.75rem; max-width: 56rem; margin: 0 auto">
+            <!-- PAGE: INPUT KK -->
+            <div id="d-page-input" class="d-fade-in">
+              <div style="margin-bottom: 1.75rem">
+                <h1
+                  style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: var(--gold);
+                  "
+                >
+                  Input Data Kepala Keluarga
+                </h1>
+                <p
+                  style="
+                    font-size: 0.875rem;
+                    margin-top: 0.25rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Data tersimpan langsung ke Google Spreadsheet
+                </p>
+              </div>
+              <div
+                class="d-card"
+                style="padding: 1.5rem; margin-bottom: 1.25rem"
+              >
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 1.25rem;
+                  "
+                >
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Identitas Kepala Keluarga
+                  </p>
+                  <span
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      padding: 0.125rem 0.5rem;
+                      border-radius: 9999px;
+                      background: rgba(248, 113, 113, 0.12);
+                      color: var(--red);
+                      border: 1px solid rgba(248, 113, 113, 0.25);
+                    "
+                    >Wajib Diisi</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1rem;
+                  "
+                >
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Nama Kepala Keluarga
+                      <span style="color: var(--red)">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="inp-nama"
+                      class="d-field"
+                      placeholder="Nama lengkap sesuai KK..."
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Nomor KK <span style="color: var(--red)">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="inp-nokk"
+                      class="d-field d-mono"
+                      placeholder="16 digit No KK..."
+                      maxlength="16"
+                      oninput="this.value = this.value.replace(/\D/g, '')"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >NIK Kepala Keluarga
+                      <span style="color: var(--red)">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="inp-nik"
+                      class="d-field d-mono"
+                      placeholder="16 digit NIK..."
+                      maxlength="16"
+                      oninput="this.value = this.value.replace(/\D/g, '')"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Jenis Kelamin
+                      <span style="color: var(--red)">*</span></label
+                    >
+                    <div style="display: flex; gap: 0.5rem">
+                      <button
+                        class="d-btn-jk"
+                        id="jk-L"
+                        onclick="dSetJK('L', 'jk-L', 'jk-P')"
+                      >
+                        ♂ Laki-laki
+                      </button>
+                      <button
+                        class="d-btn-jk"
+                        id="jk-P"
+                        onclick="dSetJK('P', 'jk-L', 'jk-P')"
+                      >
+                        ♀ Perempuan
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Pendidikan Terakhir
+                      <span style="color: var(--red)">*</span></label
+                    >
+                    <select id="inp-pendidikan" class="d-field">
+                      <option value="">-- Pilih --</option>
+                      <option>Tidak Sekolah</option>
+                      <option>SD/Sederajat</option>
+                      <option>SMP/Sederajat</option>
+                      <option>SMA/Sederajat</option>
+                      <option>D1/D2/D3</option>
+                      <option>S1/D4</option>
+                      <option>S2</option>
+                      <option>S3</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Blok <span style="color: var(--red)">*</span></label
+                    >
+                    <select id="inp-wilayah" class="d-field">
+                      <option value="">-- Pilih --</option>
+                      <option>A</option>
+                      <option>B</option>
+                      <option>C</option>
+                      <option>D</option>
+                      <option>E</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="d-card"
+                style="padding: 1.5rem; margin-bottom: 1.25rem"
+              >
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Upload Dokumen Kartu Keluarga
+                  </p>
+                  <span
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      padding: 0.125rem 0.5rem;
+                      border-radius: 9999px;
+                      background: var(--gold-dim2);
+                      color: var(--text-dim);
+                      border: 1px solid var(--border);
+                    "
+                    >Opsional</span
+                  >
+                </div>
+                <p
+                  style="
+                    font-size: 0.75rem;
+                    margin-bottom: 1rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Paste link Google Drive dokumen KK di bawah.
+                  <em>Dapat diisi belakangan.</em>
+                </p>
+                <div style="margin-bottom: 1.25rem">
+                  <label
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 500;
+                      display: block;
+                      margin-bottom: 0.375rem;
+                      color: var(--text-dim);
+                    "
+                    >Link Google Drive Dokumen KK
+                    <span
+                      style="
+                        font-size: 0.7rem;
+                        color: var(--text-dim);
+                        opacity: 0.7;
+                      "
+                      >(opsional)</span
+                    ></label
+                  >
+                  <input
+                    type="url"
+                    id="inp-gdrive"
+                    class="d-field"
+                    placeholder="https://drive.google.com/file/d/..."
+                  />
+                  <p
+                    style="
+                      font-size: 0.7rem;
+                      margin-top: 0.25rem;
+                      color: var(--text-dim);
+                      opacity: 0.7;
+                    "
+                  >
+                    Upload ke Google Drive → klik kanan → "Get link" → paste di
+                    sini
+                  </p>
+                </div>
+                <div
+                  style="
+                    border-top: 1px solid var(--border2);
+                    padding-top: 1.25rem;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    <p
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                        color: var(--text-dim);
+                      "
+                    >
+                      Upload Dokumen KTP Kepala Keluarga
+                    </p>
+                    <span
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        padding: 0.125rem 0.5rem;
+                        border-radius: 9999px;
+                        background: var(--gold-dim2);
+                        color: var(--text-dim);
+                        border: 1px solid var(--border);
+                      "
+                      >Opsional</span
+                    >
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Link Google Drive Dokumen KTP
+                      <span
+                        style="
+                          font-size: 0.7rem;
+                          color: var(--text-dim);
+                          opacity: 0.7;
+                        "
+                        >(opsional)</span
+                      ></label
+                    >
+                    <input
+                      type="url"
+                      id="inp-gdrive-ktp"
+                      class="d-field"
+                      placeholder="https://drive.google.com/file/d/..."
+                    />
+                    <p
+                      style="
+                        font-size: 0.7rem;
+                        margin-top: 0.25rem;
+                        color: var(--text-dim);
+                        opacity: 0.7;
+                      "
+                    >
+                      Upload ke Google Drive → klik kanan → "Get link" → paste
+                      di sini
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem">
+                <button
+                  onclick="dSimpanKK()"
+                  id="d-btn-simpan"
+                  class="d-btn-primary"
+                  style="display: flex; align-items: center; gap: 0.5rem"
+                >
+                  <i data-lucide="save" style="width: 15px; height: 15px"></i>
+                  <span id="d-btn-simpan-text">Simpan ke Spreadsheet</span>
+                </button>
+                <button onclick="dResetFormKK()" class="d-btn-ghost">
+                  Reset
+                </button>
+              </div>
+            </div>
+            <!-- /d-page-input -->
+
+            <!-- PAGE: TAMBAH ANGGOTA -->
+            <div id="d-page-anggota" class="d-fade-in" style="display: none">
+              <div style="margin-bottom: 1.75rem">
+                <h1
+                  style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: var(--gold);
+                  "
+                >
+                  Tambah Anggota Keluarga
+                </h1>
+                <p
+                  style="
+                    font-size: 0.875rem;
+                    margin-top: 0.25rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Tambahkan anggota pada Nomor KK yang sudah terdaftar
+                </p>
+              </div>
+              <div
+                class="d-card"
+                style="padding: 1.25rem; margin-bottom: 1.25rem"
+              >
+                <label
+                  style="
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    display: block;
+                    margin-bottom: 0.375rem;
+                    color: var(--text-dim);
+                  "
+                  >Cari Nomor KK</label
+                >
+                <input
+                  type="text"
+                  id="cari-nokk-ang"
+                  class="d-field d-mono"
+                  placeholder="Ketik nomor KK..."
+                  maxlength="16"
+                  oninput="
+                    this.value = this.value.replace(/\D/g, '');
+                    dCariKKUntukAnggota();
+                  "
+                  style="max-width: 360px"
+                />
+                <div
+                  id="d-kk-found"
+                  style="
+                    display: none;
+                    margin-top: 0.75rem;
+                    display: none;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 0.75rem 1rem;
+                    border-radius: 0.75rem;
+                    background: var(--gold-dim2);
+                    border: 1px solid var(--border);
+                  "
+                >
+                  <i
+                    data-lucide="check-circle-2"
+                    style="width: 18px; height: 18px; color: var(--green)"
+                  ></i>
+                  <div>
+                    <p
+                      id="d-kk-found-nama"
+                      style="font-size: 0.875rem; font-weight: 600"
+                    ></p>
+                    <p
+                      id="d-kk-found-info"
+                      style="font-size: 0.75rem; color: var(--text-dim)"
+                    ></p>
+                  </div>
+                </div>
+                <div
+                  id="d-kk-notfound"
+                  style="
+                    display: none;
+                    margin-top: 0.75rem;
+                    padding: 0.625rem 1rem;
+                    border-radius: 0.75rem;
+                    font-size: 0.875rem;
+                    background: rgba(248, 113, 113, 0.08);
+                    border: 1px solid rgba(248, 113, 113, 0.2);
+                    color: var(--red);
+                  "
+                >
+                  Nomor KK belum terdaftar. Silakan input data KK terlebih
+                  dahulu.
+                </div>
+              </div>
+              <div
+                id="d-form-anggota"
+                class="d-card d-slide-up"
+                style="display: none; padding: 1.5rem; margin-bottom: 1.25rem"
+              >
+                <p
+                  style="
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    margin-bottom: 1.25rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Data Anggota Baru
+                </p>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1rem;
+                  "
+                >
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Nama Anggota
+                      <span style="color: var(--red)">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="ang-nama"
+                      class="d-field"
+                      placeholder="Nama lengkap..."
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >NIK <span style="color: var(--red)">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="ang-nik"
+                      class="d-field d-mono"
+                      placeholder="16 digit NIK..."
+                      maxlength="16"
+                      oninput="this.value = this.value.replace(/\D/g, '')"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Hubungan <span style="color: var(--red)">*</span></label
+                    >
+                    <select id="ang-hubungan" class="d-field">
+                      <option value="">-- Pilih --</option>
+                      <option>Suami</option>
+                      <option>Istri</option>
+                      <option>Anak</option>
+                      <option>Orang Tua</option>
+                      <option>Mertua</option>
+                      <option>Cucu</option>
+                      <option>Lainnya</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Jenis Kelamin</label
+                    >
+                    <div style="display: flex; gap: 0.5rem">
+                      <button
+                        class="d-btn-jk"
+                        id="ang-jk-L"
+                        onclick="dSetJK('L', 'ang-jk-L', 'ang-jk-P')"
+                      >
+                        ♂ Laki-laki
+                      </button>
+                      <button
+                        class="d-btn-jk"
+                        id="ang-jk-P"
+                        onclick="dSetJK('P', 'ang-jk-L', 'ang-jk-P')"
+                      >
+                        ♀ Perempuan
+                      </button>
+                    </div>
+                  </div>
+                  <div style="grid-column: 1/-1">
+                    <label
+                      style="
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        display: block;
+                        margin-bottom: 0.375rem;
+                        color: var(--text-dim);
+                      "
+                      >Pendidikan Terakhir</label
+                    >
+                    <select id="ang-pendidikan" class="d-field">
+                      <option value="">-- Pilih --</option>
+                      <option>Tidak Sekolah</option>
+                      <option>SD/Sederajat</option>
+                      <option>SMP/Sederajat</option>
+                      <option>SMA/Sederajat</option>
+                      <option>D1/D2/D3</option>
+                      <option>S1/D4</option>
+                      <option>S2</option>
+                      <option>S3</option>
+                    </select>
+                  </div>
+                </div>
+                <button
+                  onclick="dSimpanAnggota()"
+                  id="d-btn-ang"
+                  class="d-btn-primary"
+                  style="
+                    margin-top: 1.25rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                  "
+                >
+                  <i
+                    data-lucide="user-check"
+                    style="width: 15px; height: 15px"
+                  ></i>
+                  <span id="d-btn-ang-text">Tambah Anggota</span>
+                </button>
+              </div>
+            </div>
+            <!-- /d-page-anggota -->
+
+            <!-- PAGE: REKAP -->
+            <div id="d-page-rekap" class="d-fade-in" style="display: none">
+              <div style="margin-bottom: 1.75rem">
+                <h1
+                  style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: var(--gold);
+                  "
+                >
+                  Rekap Data &amp; Statistik
+                </h1>
+                <p
+                  style="
+                    font-size: 0.875rem;
+                    margin-top: 0.25rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Data real-time dari Google Spreadsheet
+                </p>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 1rem;
+                  margin-bottom: 1.75rem;
+                "
+              >
+                <div class="d-stat-card">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      margin-bottom: 0.5rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Total KK
+                  </p>
+                  <p
+                    id="d-st-kk"
+                    style="
+                      font-size: 1.875rem;
+                      font-weight: 800;
+                      color: var(--gold);
+                    "
+                  >
+                    —
+                  </p>
+                </div>
+                <div class="d-stat-card">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      margin-bottom: 0.5rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Total Warga
+                  </p>
+                  <p
+                    id="d-st-warga"
+                    style="
+                      font-size: 1.875rem;
+                      font-weight: 800;
+                      color: var(--gold);
+                    "
+                  >
+                    —
+                  </p>
+                </div>
+                <div class="d-stat-card">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      margin-bottom: 0.5rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Berkas Terupload
+                  </p>
+                  <p
+                    id="d-st-berkas"
+                    style="
+                      font-size: 1.875rem;
+                      font-weight: 800;
+                      color: var(--gold);
+                    "
+                  >
+                    —
+                  </p>
+                </div>
+                <div class="d-stat-card">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      margin-bottom: 0.5rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Total Anggota
+                  </p>
+                  <p
+                    id="d-st-anggota"
+                    style="
+                      font-size: 1.875rem;
+                      font-weight: 800;
+                      color: var(--gold);
+                    "
+                  >
+                    —
+                  </p>
+                </div>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 1.25rem;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                <div class="d-card" style="padding: 1.25rem">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      margin-bottom: 1rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Jenis Kelamin KK
+                  </p>
+                  <div style="height: 230px">
+                    <canvas id="d-chart-jk"></canvas>
+                  </div>
+                </div>
+                <div class="d-card" style="padding: 1.25rem">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      margin-bottom: 1rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Pendidikan KK
+                  </p>
+                  <div style="height: 230px">
+                    <canvas id="d-chart-pend"></canvas>
+                  </div>
+                </div>
+                <div class="d-card" style="padding: 1.25rem">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      margin-bottom: 1rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Status Berkas KK
+                  </p>
+                  <div style="height: 230px">
+                    <canvas id="d-chart-berkas"></canvas>
+                  </div>
+                </div>
+                <div class="d-card" style="padding: 1.25rem">
+                  <p
+                    style="
+                      font-size: 0.75rem;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      letter-spacing: 0.1em;
+                      margin-bottom: 1rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Jumlah Anggota per KK
+                  </p>
+                  <div style="height: 230px">
+                    <canvas id="d-chart-ang"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /d-page-rekap -->
+
+            <!-- PAGE: CARI -->
+            <div id="d-page-cari" class="d-fade-in" style="display: none">
+              <div style="margin-bottom: 1.75rem">
+                <h1
+                  style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: var(--gold);
+                  "
+                >
+                  Cari Data Warga
+                </h1>
+                <p
+                  style="
+                    font-size: 0.875rem;
+                    margin-top: 0.25rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  Cari berdasarkan Nomor KK atau Nama Kepala Keluarga
+                </p>
+              </div>
+              <div style="margin-bottom: 1.25rem; display: flex; gap: 0.75rem">
+                <div
+                  class="d-field"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    flex: 1;
+                    padding-left: 0.85rem;
+                    cursor: text;
+                  "
+                  onclick="document.getElementById('d-q').focus()"
+                >
+                  <i
+                    data-lucide="search"
+                    style="
+                      width: 16px;
+                      height: 16px;
+                      opacity: 0.5;
+                      flex-shrink: 0;
+                    "
+                  ></i>
+                  <input
+                    type="text"
+                    id="d-q"
+                    placeholder="Nomor KK atau nama kepala keluarga..."
+                    style="
+                      background: transparent;
+                      outline: none;
+                      font-size: 0.875rem;
+                      flex: 1;
+                      color: inherit;
+                      border: none;
+                    "
+                    onkeyup="if (event.key === 'Enter') dDoSearch();"
+                  />
+                </div>
+                <button
+                  onclick="dDoSearch()"
+                  class="d-btn-primary"
+                  style="padding: 0.65rem 1.25rem"
+                >
+                  Cari
+                </button>
+              </div>
+              <div
+                id="d-cari-loading"
+                style="
+                  display: none;
+                  text-align: center;
+                  padding: 2rem;
+                  color: var(--text-dim);
+                "
+              >
+                <div class="d-spinner" style="margin: 0 auto 0.75rem"></div>
+                <p style="font-size: 0.875rem">Mencari di Spreadsheet...</p>
+              </div>
+              <div
+                id="d-cari-results"
+                style="display: flex; flex-direction: column; gap: 0.75rem"
+              ></div>
+              <div
+                id="d-cari-empty"
+                style="
+                  display: none;
+                  text-align: center;
+                  padding: 3rem;
+                  color: var(--text-dim);
+                "
+              >
+                <i
+                  data-lucide="search-x"
+                  style="
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto;
+                    opacity: 0.4;
+                  "
+                ></i>
+                <p style="font-size: 0.875rem; margin-top: 0.75rem">
+                  Tidak ada data yang cocok
+                </p>
+              </div>
+              <div
+                id="d-cari-hint"
+                style="
+                  text-align: center;
+                  padding: 3rem;
+                  color: var(--text-dim);
+                "
+              >
+                <i
+                  data-lucide="search"
+                  style="
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto;
+                    opacity: 0.3;
+                  "
+                ></i>
+                <p style="font-size: 0.875rem; margin-top: 0.75rem">
+                  Ketik lalu tekan Enter atau klik Cari
+                </p>
+              </div>
+            </div>
+            <!-- /d-page-cari -->
+
+            <!-- PAGE: DAFTAR KK -->
+            <div id="d-page-daftar" class="d-fade-in" style="display: none">
+              <div
+                style="
+                  margin-bottom: 1.75rem;
+                  display: flex;
+                  align-items: flex-start;
+                  justify-content: space-between;
+                  gap: 1rem;
+                "
+              >
+                <div>
+                  <h1
+                    style="
+                      font-size: 1.5rem;
+                      font-weight: 800;
+                      color: var(--gold);
+                    "
+                  >
+                    Daftar Semua KK
+                  </h1>
+                  <p
+                    style="
+                      font-size: 0.875rem;
+                      margin-top: 0.25rem;
+                      color: var(--text-dim);
+                    "
+                  >
+                    Seluruh data dari Google Spreadsheet
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  id="d-filter-daftar"
+                  class="d-field"
+                  style="max-width: 220px"
+                  placeholder="Filter nama / No. KK..."
+                  oninput="dFilterDaftar()"
+                />
+              </div>
+              <div
+                id="d-daftar-loading"
+                style="
+                  display: none;
+                  text-align: center;
+                  padding: 2rem;
+                  color: var(--text-dim);
+                "
+              >
+                <div class="d-spinner" style="margin: 0 auto 0.75rem"></div>
+                <p style="font-size: 0.875rem">Memuat data...</p>
+              </div>
+              <div class="d-card" style="overflow: hidden">
+                <div style="overflow-x: auto">
+                  <table class="d-table" id="d-tbl-daftar">
+                    <thead>
+                      <tr>
+                        <th>No. KK</th>
+                        <th>Nama KK</th>
+                        <th>NIK</th>
+                        <th>JK</th>
+                        <th>Pendidikan</th>
+                        <th>Blok</th>
+                        <th>Berkas KK</th>
+                        <th>Berkas KTP</th>
+                        <th>Anggota</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="d-tbl-body"></tbody>
+                  </table>
+                </div>
+                <div
+                  id="d-daftar-empty"
+                  style="
+                    display: none;
+                    text-align: center;
+                    padding: 2.5rem;
+                    color: var(--text-dim);
+                  "
+                >
+                  <p style="font-size: 0.875rem">Belum ada data</p>
+                </div>
+              </div>
+            </div>
+            <!-- /d-page-daftar -->
+          </div>
+          <!-- /max-w -->
+        </main>
+      </div>
+      <!-- /flex -->
+
+      <!-- Toast -->
+      <div
+        id="d-toast"
+        style="
+          display: none;
+          position: fixed;
+          bottom: 1.5rem;
+          right: 1.5rem;
+          z-index: 50;
+        "
+        class="d-fade-in"
+      ></div>
+
+      <!-- Modal Detail -->
+      <div
+        id="d-modal"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          z-index: 50;
+          display: none;
+          align-items: center;
+          justify-content: center;
+        "
+        class="d-modal-backdrop"
+      >
+        <div
+          class="d-modal-box"
+          style="
+            width: 100%;
+            max-width: 32rem;
+            margin: 0.75rem;
+            padding: 1.5rem;
+            max-height: 85vh;
+            overflow-y: auto;
+          "
+          class="d-fade-in"
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 1.25rem;
+            "
+          >
+            <h2
+              style="font-weight: 700; font-size: 1.125rem; color: var(--gold)"
+            >
+              Detail Data Keluarga
+            </h2>
+            <button
+              onclick="dCloseModal()"
+              style="background: none; cursor: pointer; opacity: 0.5"
+              onmouseover="this.style.opacity = 1"
+              onmouseout="this.style.opacity = 0.5"
+            >
+              <i data-lucide="x" style="width: 20px; height: 20px"></i>
+            </button>
+          </div>
+          <div id="d-modal-content"></div>
+        </div>
+      </div>
+
+      <!-- Modal Edit KK -->
+      <div
+        id="d-modal-edit"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          z-index: 50;
+          align-items: center;
+          justify-content: center;
+        "
+        class="d-modal-backdrop"
+      >
+        <div
+          class="d-modal-box"
+          style="
+            width: 100%;
+            max-width: 32rem;
+            margin: 0.75rem;
+            padding: 1.5rem;
+            max-height: 85vh;
+            overflow-y: auto;
+          "
+          class="d-fade-in"
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 1.25rem;
+            "
+          >
+            <h2
+              style="font-weight: 700; font-size: 1.125rem; color: var(--gold)"
+            >
+              Edit Data KK
+            </h2>
+            <button
+              onclick="dCloseModalEdit()"
+              style="background: none; cursor: pointer; opacity: 0.5"
+              onmouseover="this.style.opacity = 1"
+              onmouseout="this.style.opacity = 0.5"
+            >
+              <i data-lucide="x" style="width: 20px; height: 20px"></i>
+            </button>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 1rem">
+            <input type="hidden" id="d-edit-id" />
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Nama KK</label
+              ><input type="text" id="d-edit-nama" class="d-field" />
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >NIK KK</label
+              ><input
+                type="text"
+                id="d-edit-nik"
+                class="d-field d-mono"
+                maxlength="16"
+              />
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Jenis Kelamin</label
+              >
+              <div style="display: flex; gap: 0.5rem">
+                <button
+                  class="d-btn-jk"
+                  id="d-edit-jk-L"
+                  onclick="dSetJK('L', 'd-edit-jk-L', 'd-edit-jk-P')"
+                >
+                  ♂ Laki-laki
+                </button>
+                <button
+                  class="d-btn-jk"
+                  id="d-edit-jk-P"
+                  onclick="dSetJK('P', 'd-edit-jk-L', 'd-edit-jk-P')"
+                >
+                  ♀ Perempuan
+                </button>
+              </div>
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Pendidikan</label
+              >
+              <select id="d-edit-pend" class="d-field">
+                <option>Tidak Sekolah</option>
+                <option>SD/Sederajat</option>
+                <option>SMP/Sederajat</option>
+                <option>SMA/Sederajat</option>
+                <option>D1/D2/D3</option>
+                <option>S1/D4</option>
+                <option>S2</option>
+                <option>S3</option>
+              </select>
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Blok</label
+              >
+              <select id="d-edit-wilayah" class="d-field">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+              </select>
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Link Google Drive KK</label
+              ><input
+                type="url"
+                id="d-edit-gdrive"
+                class="d-field"
+                placeholder="https://drive.google.com/..."
+              />
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 0.75rem;
+                  font-weight: 500;
+                  display: block;
+                  margin-bottom: 0.375rem;
+                  color: var(--text-dim);
+                "
+                >Link Google Drive KTP</label
+              ><input
+                type="url"
+                id="d-edit-gdrive-ktp"
+                class="d-field"
+                placeholder="https://drive.google.com/..."
+              />
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem">
+            <button
+              onclick="dSaveEdit()"
+              id="d-btn-edit-save"
+              class="d-btn-primary"
+              style="flex: 1"
+            >
+              Simpan Perubahan
+            </button>
+            <button onclick="dCloseModalEdit()" class="d-btn-ghost">
+              Batal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /page-dashboard -->
+
+    <!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+    <script>
+      // ================================================================
+      // CONFIG — URL Apps Script yang sudah dideploy
+      // ================================================================
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbxTdEb625--nVCETZCfucs62MNZ-_yBHf-0hBC5H6zFJdUVmF_I4DHNxLtbnVQNi3aM4Q/exec";
+
+      // Kredensial login
+      const VALID_USERS = [
+        { username: "alvin", password: "alvin12345" },
+        { username: "fadhlanganteng", password: "fadhlan12345" },
+        { username: "tammy", password: "tammy12345" },
+        { username: "fauzan", password: "fauzan12345" },
+        { username: "deden", password: "deden12345" },
+        { username: "dindahehimdemdud", password: "dinda12345" },
+        { username: "nadea", password: "nadea12345" },
+        { username: "arni", password: "arni12345" },
+        { username: "resti", password: "resti12345" },
+        { username: "melani", password: "melani12345" },
+        { username: "sucipta", password: "sucipta12345" },
+        { username: "agrestesia", password: "agrestesia12345" },
+      ];
+
+      // Routing halaman
+      const pages = {
+        landing: document.getElementById("page-landing"),
+        login: document.getElementById("page-login"),
+        dashboard: document.getElementById("page-dashboard"),
+      };
+
+      function showLanding() {
+        pages.landing.style.display = "block";
+        pages.login.style.display = "none";
+        pages.dashboard.style.display = "none";
+        window.scrollTo(0, 0);
+        feather.replace();
+      }
+
+      function showLogin() {
+        pages.landing.style.display = "none";
+        pages.login.style.display = "flex";
+        pages.dashboard.style.display = "none";
+        lucide.createIcons();
+        document.getElementById("l-user").focus();
+      }
+
+      function showDashboard() {
+        pages.landing.style.display = "none";
+        pages.login.style.display = "none";
+        pages.dashboard.style.display = "block";
+        lucide.createIcons();
+        dGotoPage("input");
+        dRefreshData();
+        const saved = localStorage.getItem("d-theme");
+        if (saved === "light") {
+          document.getElementById("page-dashboard").classList.add("light-mode");
+          const icon = document.getElementById("d-theme-icon");
+          const lbl = document.getElementById("d-theme-label");
+          if (icon) icon.setAttribute("data-lucide", "moon");
+          if (lbl) lbl.textContent = "Mode Gelap";
+          lucide.createIcons();
+        }
+      }
+
+      // Hamburger menu
+      const navbarNav = document.querySelector(".navbar-nav");
+      if (document.querySelector("#hamburger-menu")) {
+        document.querySelector("#hamburger-menu").onclick = () => {
+          navbarNav.classList.toggle("active");
+        };
+        document.addEventListener("click", function (e) {
+          const hamburger = document.querySelector("#hamburger-menu");
+          if (
+            hamburger &&
+            !hamburger.contains(e.target) &&
+            !navbarNav.contains(e.target)
+          ) {
+            navbarNav.classList.remove("active");
+          }
+        });
+      }
+
+      // Login
+      function doLogin() {
+        const username = document.getElementById("l-user").value.trim();
+        const password = document.getElementById("l-pass").value;
+        const errEl = document.getElementById("login-err");
+        const btnEl = document.getElementById("login-btn-el");
+        const btnTxt = document.getElementById("login-btn-txt");
+
+        errEl.style.display = "none";
+
+        if (!username || !password) {
+          document.getElementById("login-err-msg").textContent =
+            "Username dan password wajib diisi.";
+          errEl.style.display = "flex";
+          return;
+        }
+
+        btnEl.disabled = true;
+        btnTxt.textContent = "Memverifikasi...";
+
+        setTimeout(() => {
+          const valid = VALID_USERS.find(
+            (u) => u.username === username && u.password === password,
+          );
+          if (valid) {
+            sessionStorage.setItem("logged_in", "1");
+            sessionStorage.setItem("username", username);
+            btnTxt.textContent = "Masuk";
+            btnEl.disabled = false;
+            document.getElementById("l-pass").value = "";
+            showDashboard();
+          } else {
+            document.getElementById("login-err-msg").textContent =
+              "Username atau password salah.";
+            errEl.style.display = "flex";
+            btnTxt.textContent = "Masuk";
+            btnEl.disabled = false;
+          }
+        }, 600);
+      }
+
+      // Eye toggle
+      const eyeBtn = document.getElementById("eye-btn");
+      if (eyeBtn) {
+        eyeBtn.onclick = function () {
+          const p = document.getElementById("l-pass");
+          const show = p.type === "password";
+          p.type = show ? "text" : "password";
+          document
+            .getElementById("eye-ic")
+            .setAttribute("data-lucide", show ? "eye-off" : "eye");
+          lucide.createIcons();
+        };
+      }
+
+      // ================================================================
+      // DASHBOARD STATE
+      // ================================================================
+      let dKkData = [];
+      let dAngData = [];
+      let dStats = {};
+      let dCurrentPage = "input";
+      let dSelectedJK = {};
+      let dAngKKTarget = null;
+      let dCharts = {};
+      let dEditTarget = null;
+
+      // ================================================================
+      // API CALL — menggunakan mode no-cors terlebih dahulu, lalu handling
+      // ================================================================
+      async function dApiCall(payload) {
+        console.log("Mengirim request ke:", APPS_SCRIPT_URL);
+        console.log("Payload:", payload);
+
+        try {
+          // Gunakan POST dengan mode yang tepat
+          const response = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const text = await response.text();
+          console.log("Response text:", text);
+
+          // Coba parse JSON
+          try {
+            const data = JSON.parse(text);
+            return data;
+          } catch (e) {
+            console.error("Gagal parse JSON:", e);
+            return {
+              success: false,
+              message: "Respons server tidak valid: " + text.substring(0, 200),
+            };
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          return {
+            success: false,
+            message: "Gagal terhubung ke server: " + error.message,
+          };
+        }
+      }
+
+      async function dRefreshData() {
+        const icon = document.getElementById("d-refresh-icon");
+        if (icon) icon.style.animation = "dSpin .7s linear infinite";
+        dSetSyncStatus("loading");
+
+        const r = await dApiCall({ action: "get_all" });
+
+        if (icon) icon.style.animation = "";
+
+        if (r && r.success) {
+          dKkData = r.kk || [];
+          dAngData = r.anggota || [];
+          dStats = r.stats || {};
+          dSetSyncStatus("ok");
+          if (dCurrentPage === "rekap") dRenderRekap();
+          if (dCurrentPage === "daftar") dRenderDaftar();
+          dUpdateStatCards();
+        } else {
+          dSetSyncStatus("error");
+          dShowToast(r?.message || "Gagal memuat data dari Spreadsheet", true);
+        }
+      }
+
+      function dSetSyncStatus(state) {
+        const el = document.getElementById("d-sync-status");
+        if (!el) return;
+        if (state === "ok")
+          el.innerHTML =
+            '<i data-lucide="cloud-check" style="width:13px;height:13px;color:var(--green)"></i><span style="color:var(--green)">Terhubung ke Sheets</span>';
+        else if (state === "loading")
+          el.innerHTML =
+            '<div class="d-spinner" style="width:12px;height:12px"></div><span>Menyinkron...</span>';
+        else
+          el.innerHTML =
+            '<i data-lucide="cloud-off" style="width:13px;height:13px;color:var(--red)"></i><span style="color:var(--red)">Gagal terhubung</span>';
+        lucide.createIcons();
+      }
+
+      // Navigasi
+      function dGotoPage(page) {
+        dCurrentPage = page;
+        ["input", "anggota", "rekap", "cari", "daftar"].forEach((p) => {
+          const el = document.getElementById("d-page-" + p);
+          if (el) el.style.display = p === page ? "block" : "none";
+          const btn = document.getElementById("d-nav-" + p);
+          if (btn) btn.classList.toggle("active", p === page);
+        });
+        if (page === "rekap") dRefreshData();
+        if (page === "daftar") dRefreshData();
+        lucide.createIcons();
+      }
+
+      // JK Toggle
+      function dSetJK(val, idA, idB) {
+        const key = idA.replace(/-L$/, "").replace(/-P$/, "");
+        dSelectedJK[key] = val;
+        [idA, idB].forEach((id) => {
+          const btn = document.getElementById(id);
+          if (btn) btn.classList.toggle("selected", id.endsWith("-" + val));
+        });
+      }
+
+      // Simpan KK
+      async function dSimpanKK() {
+        const nama = document.getElementById("inp-nama")?.value.trim() || "";
+        const nokk = document.getElementById("inp-nokk")?.value.trim() || "";
+        const nik = document.getElementById("inp-nik")?.value.trim() || "";
+        const pend = document.getElementById("inp-pendidikan")?.value || "";
+        const wil = document.getElementById("inp-wilayah")?.value.trim() || "";
+        const gdrv = document.getElementById("inp-gdrive")?.value.trim() || "";
+        const gdrvKtp =
+          document.getElementById("inp-gdrive-ktp")?.value.trim() || "";
+        const jk = dGetJK("jk");
+
+        if (!nama) {
+          dShowToast("Nama wajib diisi", true);
+          return;
+        }
+        if (nokk.length !== 16) {
+          dShowToast("Nomor KK harus 16 digit", true);
+          return;
+        }
+        if (nik.length !== 16) {
+          dShowToast("NIK harus 16 digit", true);
+          return;
+        }
+        if (!jk) {
+          dShowToast("Pilih jenis kelamin", true);
+          return;
+        }
+        if (!pend) {
+          dShowToast("Pilih pendidikan terakhir", true);
+          return;
+        }
+        if (!wil) {
+          dShowToast("Pilih Blok", true);
+          return;
+        }
+
+        const btn = document.getElementById("d-btn-simpan");
+        const txt = document.getElementById("d-btn-simpan-text");
+        if (btn) btn.disabled = true;
+        if (txt) txt.textContent = "Menyimpan...";
+
+        const r = await dApiCall({
+          action: "simpan_kk",
+          data: {
+            nokk,
+            nama_kk: nama,
+            nik_kk: nik,
+            jenis_kelamin: jk,
+            pendidikan: pend,
+            wilayah: wil,
+            gdrive_link: gdrv,
+            gdrive_ktp_link: gdrvKtp,
+          },
+        });
+
+        if (btn) btn.disabled = false;
+        if (txt) txt.textContent = "Simpan ke Spreadsheet";
+
+        if (r && r.success) {
+          dShowToast("✓ Data KK berhasil disimpan!");
+          dResetFormKK();
+          dRefreshData();
+        } else {
+          dShowToast(r?.message || "Gagal menyimpan data", true);
+        }
+      }
+
+      function dResetFormKK() {
+        [
+          "inp-nama",
+          "inp-nokk",
+          "inp-nik",
+          "inp-wilayah",
+          "inp-gdrive",
+          "inp-gdrive-ktp",
+        ].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+        const pendEl = document.getElementById("inp-pendidikan");
+        if (pendEl) pendEl.value = "";
+        dSelectedJK["jk"] = "";
+        ["jk-L", "jk-P"].forEach((id) => {
+          const b = document.getElementById(id);
+          if (b) b.classList.remove("selected");
+        });
+      }
+
+      // Anggota
+      async function dCariKKUntukAnggota() {
+        const nokk =
+          document.getElementById("cari-nokk-ang")?.value.trim() || "";
+        dAngKKTarget = null;
+        const foundDiv = document.getElementById("d-kk-found");
+        const notfoundDiv = document.getElementById("d-kk-notfound");
+        const formDiv = document.getElementById("d-form-anggota");
+
+        if (foundDiv) foundDiv.style.display = "none";
+        if (notfoundDiv) notfoundDiv.style.display = "none";
+        if (formDiv) formDiv.style.display = "none";
+
+        if (nokk.length < 6) return;
+
+        let found = dKkData.find((k) => k.nokk === nokk);
+        if (!found) {
+          await dRefreshData();
+          found = dKkData.find((k) => k.nokk === nokk);
+        }
+
+        if (found) {
+          dAngKKTarget = found;
+          const cnt = dAngData.filter((a) => a.nokk === nokk).length;
+          const namaEl = document.getElementById("d-kk-found-nama");
+          const infoEl = document.getElementById("d-kk-found-info");
+          if (namaEl) namaEl.textContent = found.nama_kk;
+          if (infoEl)
+            infoEl.textContent =
+              "No.KK: " + nokk + " · Anggota tercatat: " + cnt + " orang";
+          if (foundDiv) foundDiv.style.display = "flex";
+          if (formDiv) formDiv.style.display = "block";
+        } else if (nokk.length >= 10) {
+          if (notfoundDiv) notfoundDiv.style.display = "block";
+        }
+        lucide.createIcons();
+      }
+
+      async function dSimpanAnggota() {
+        if (!dAngKKTarget) {
+          dShowToast("Cari KK terlebih dahulu", true);
+          return;
+        }
+        const nama = document.getElementById("ang-nama")?.value.trim() || "";
+        const nik = document.getElementById("ang-nik")?.value.trim() || "";
+        const hub = document.getElementById("ang-hubungan")?.value || "";
+        const pend = document.getElementById("ang-pendidikan")?.value || "";
+        const jk = dGetJK("ang-jk");
+
+        if (!nama) {
+          dShowToast("Nama anggota wajib diisi", true);
+          return;
+        }
+        if (nik.length !== 16) {
+          dShowToast("NIK harus 16 digit", true);
+          return;
+        }
+        if (!hub) {
+          dShowToast("Pilih hubungan keluarga", true);
+          return;
+        }
+
+        const btn = document.getElementById("d-btn-ang");
+        const txt = document.getElementById("d-btn-ang-text");
+        if (btn) btn.disabled = true;
+        if (txt) txt.textContent = "Menyimpan...";
+
+        const r = await dApiCall({
+          action: "simpan_anggota",
+          data: {
+            nokk: dAngKKTarget.nokk,
+            nama_anggota: nama,
+            nik_anggota: nik,
+            hubungan: hub,
+            jenis_kelamin: jk,
+            pendidikan: pend,
+          },
+        });
+
+        if (btn) btn.disabled = false;
+        if (txt) txt.textContent = "Tambah Anggota";
+
+        if (r && r.success) {
+          dShowToast("✓ Anggota berhasil ditambahkan!");
+          ["ang-nama", "ang-nik"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+          });
+          const hubEl = document.getElementById("ang-hubungan");
+          if (hubEl) hubEl.value = "";
+          const pendEl = document.getElementById("ang-pendidikan");
+          if (pendEl) pendEl.value = "";
+          dSelectedJK["ang-jk"] = "";
+          ["ang-jk-L", "ang-jk-P"].forEach((id) => {
+            const b = document.getElementById(id);
+            if (b) b.classList.remove("selected");
+          });
+          dCariKKUntukAnggota();
+          dRefreshData();
+        } else {
+          dShowToast(r?.message || "Gagal menambah anggota", true);
+        }
+      }
+
+      // Update stat cards
+      function dUpdateStatCards() {
+        const kkEl = document.getElementById("d-st-kk");
+        const wargaEl = document.getElementById("d-st-warga");
+        const berkasEl = document.getElementById("d-st-berkas");
+        const anggotaEl = document.getElementById("d-st-anggota");
+
+        if (kkEl) kkEl.textContent = dStats.total_kk ?? dKkData.length;
+        if (wargaEl)
+          wargaEl.textContent =
+            dStats.total_warga ?? dKkData.length + dAngData.length;
+        if (berkasEl)
+          berkasEl.textContent =
+            dStats.kk_dengan_berkas ??
+            dKkData.filter((k) => k.has_berkas === "Ya").length;
+        if (anggotaEl)
+          anggotaEl.textContent = dStats.total_anggota ?? dAngData.length;
+      }
+
+      // Render rekap dengan chart
+      function dRenderRekap() {
+        dUpdateStatCards();
+        if (!dKkData.length) return;
+
+        const GOLD = "#c9974a",
+          ROSE = "#f87171",
+          TEAL = "#6ee7b7",
+          BLUE = "#93c5fd";
+        const base = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: "#e8c98a",
+                font: { family: "Plus Jakarta Sans", size: 11 },
+                boxWidth: 14,
+              },
+            },
+          },
+        };
+        const axisOpts = {
+          scales: {
+            x: {
+              ticks: { color: "#e8c98a88", font: { size: 10 } },
+              grid: { color: "#c9974a18" },
+            },
+            y: {
+              ticks: { color: "#e8c98a88", font: { size: 10 } },
+              grid: { color: "#c9974a18" },
+            },
+          },
+        };
+
+        const jkMap = { "Laki-laki": 0, Perempuan: 0 };
+        dKkData.forEach((k) => {
+          if (k.jenis_kelamin === "L") jkMap["Laki-laki"]++;
+          else if (k.jenis_kelamin === "P") jkMap["Perempuan"]++;
+        });
+        dBuildChart(
+          "d-chart-jk",
+          "doughnut",
+          Object.keys(jkMap),
+          Object.values(jkMap),
+          [GOLD, ROSE],
+          base,
+        );
+
+        const pendMap = {};
+        dKkData.forEach((k) => {
+          const p = k.pendidikan || "N/A";
+          pendMap[p] = (pendMap[p] || 0) + 1;
+        });
+        dBuildChart(
+          "d-chart-pend",
+          "bar",
+          Object.keys(pendMap),
+          Object.values(pendMap),
+          GOLD,
+          {
+            ...base,
+            ...axisOpts,
+            plugins: { ...base.plugins, legend: { display: false } },
+          },
+        );
+
+        const ada = dKkData.filter((k) => k.has_berkas === "Ya").length;
+        dBuildChart(
+          "d-chart-berkas",
+          "doughnut",
+          ["Ada Berkas", "Belum Ada"],
+          [ada, dKkData.length - ada],
+          [TEAL, "#444"],
+          base,
+        );
+
+        const angBin = { 1: 0, "2–3": 0, "4–5": 0, "6+": 0 };
+        dKkData.forEach((k) => {
+          const n = 1 + dAngData.filter((a) => a.nokk === k.nokk).length;
+          if (n === 1) angBin["1"]++;
+          else if (n <= 3) angBin["2–3"]++;
+          else if (n <= 5) angBin["4–5"]++;
+          else angBin["6+"]++;
+        });
+        dBuildChart(
+          "d-chart-ang",
+          "bar",
+          Object.keys(angBin),
+          Object.values(angBin),
+          BLUE,
+          {
+            ...base,
+            ...axisOpts,
+            plugins: { ...base.plugins, legend: { display: false } },
+          },
+        );
+      }
+
+      function dBuildChart(id, type, labels, data, color, opts) {
+        if (dCharts[id]) dCharts[id].destroy();
+        const ctx = document.getElementById(id);
+        if (!ctx) return;
+        dCharts[id] = new Chart(ctx, {
+          type,
+          data: {
+            labels,
+            datasets: [
+              {
+                data,
+                backgroundColor: Array.isArray(color)
+                  ? color
+                  : data.map(() => color),
+                borderColor: "transparent",
+                borderRadius: type === "bar" ? 6 : 0,
+                borderWidth: 0,
+                hoverOffset: 6,
+              },
+            ],
+          },
+          options: { ...opts, responsive: true, maintainAspectRatio: false },
+        });
+      }
+
+      // Cari data
+      async function dDoSearch() {
+        const q = document.getElementById("d-q")?.value.trim() || "";
+        if (!q) return;
+
+        const hintEl = document.getElementById("d-cari-hint");
+        const emptyEl = document.getElementById("d-cari-empty");
+        const resultsEl = document.getElementById("d-cari-results");
+        const loadingEl = document.getElementById("d-cari-loading");
+
+        if (hintEl) hintEl.style.display = "none";
+        if (emptyEl) emptyEl.style.display = "none";
+        if (resultsEl) resultsEl.innerHTML = "";
+        if (loadingEl) loadingEl.style.display = "block";
+
+        const r = await dApiCall({ action: "cari", query: q });
+
+        if (loadingEl) loadingEl.style.display = "none";
+
+        if (!r || !r.success || !r.results || !r.results.length) {
+          if (emptyEl) emptyEl.style.display = "block";
+          return;
+        }
+
+        if (resultsEl) {
+          resultsEl.innerHTML = r.results
+            .map((kk) => {
+              const jkBadge =
+                kk.jenis_kelamin === "L"
+                  ? '<span class="d-badge d-badge-l">♂ Laki-laki</span>'
+                  : '<span class="d-badge d-badge-p">♀ Perempuan</span>';
+              const berkBadge =
+                kk.has_berkas === "Ya"
+                  ? '<span class="d-badge d-badge-ya">✓ Ada Berkas</span>'
+                  : '<span class="d-badge d-badge-tidak">✗ Belum</span>';
+              return `<div class="d-card d-slide-up" style="padding:1.25rem">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem">
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.25rem">
+                    <span style="font-weight:700">${kk.nama_kk}</span>${jkBadge} ${berkBadge}
+                  </div>
+                  <p class="d-mono" style="font-size:.75rem;margin-bottom:.125rem;color:var(--text-dim)">No. KK: ${kk.nokk}</p>
+                  <p style="font-size:.75rem;color:var(--text-dim)">NIK: ${kk.nik_kk} · ${kk.pendidikan} · ${kk.wilayah || "—"}</p>
+                  <p style="font-size:.75rem;margin-top:.25rem;color:var(--text-dim)">${(kk.anggota || []).length} anggota tercatat</p>
+                  ${kk.gdrive_link ? `<a href="${kk.gdrive_link}" target="_blank" style="font-size:.75rem;margin-top:.25rem;display:inline-flex;align-items:center;gap:.25rem;margin-right:.75rem;color:var(--gold)"><i data-lucide="external-link" style="width:12px;height:12px"></i>Buka Berkas KK</a>` : ""}
+                  ${kk.gdrive_ktp_link ? `<a href="${kk.gdrive_ktp_link}" target="_blank" style="font-size:.75rem;display:inline-flex;align-items:center;gap:.25rem;color:var(--gold)"><i data-lucide="id-card" style="width:12px;height:12px"></i>Buka KTP</a>` : ""}
+                </div>
+                <button onclick='dShowDetail(${JSON.stringify(kk).replace(/'/g, "&#39;")})' class="d-btn-ghost" style="font-size:.75rem;padding:.375rem .75rem;flex-shrink:0">Detail</button>
+              </div>
+            </div>`;
+            })
+            .join("");
+        }
+        lucide.createIcons();
+      }
+
+      // Daftar KK
+      function dRenderDaftar() {
+        const tbody = document.getElementById("d-tbl-body");
+        const empty = document.getElementById("d-daftar-empty");
+        const filterInput = document.getElementById("d-filter-daftar");
+        const q = filterInput ? filterInput.value.toLowerCase() : "";
+
+        const filtered = dKkData.filter(
+          (k) =>
+            !q || k.nokk.includes(q) || k.nama_kk.toLowerCase().includes(q),
+        );
+
+        if (!filtered.length) {
+          if (tbody) tbody.innerHTML = "";
+          if (empty) empty.style.display = "block";
+          return;
+        }
+        if (empty) empty.style.display = "none";
+
+        if (tbody) {
+          tbody.innerHTML = filtered
+            .map((kk) => {
+              const cnt = dAngData.filter((a) => a.nokk === kk.nokk).length;
+              return `<tr>
+              <td class="d-mono" style="color:var(--text-dim)">${kk.nokk}</td>
+              <td style="font-weight:500">${kk.nama_kk}</td>
+              <td class="d-mono" style="font-size:.75rem;color:var(--text-dim)">${kk.nik_kk}</td>
+              <td>${kk.jenis_kelamin === "L" ? '<span class="d-badge d-badge-l">L</span>' : '<span class="d-badge d-badge-p">P</span>'}</td>
+              <td style="font-size:.75rem;color:var(--text-dim)">${kk.pendidikan}</td>
+              <td style="font-size:.75rem;color:var(--text-dim)">${kk.wilayah || "—"}</td>
+              <td>${kk.has_berkas === "Ya" ? '<span class="d-badge d-badge-ya">Ya</span>' : '<span class="d-badge d-badge-tidak">Tidak</span>'}</td>
+              <td>${kk.gdrive_ktp_link ? '<span class="d-badge d-badge-ya">Ya</span>' : '<span class="d-badge d-badge-tidak">Tidak</span>'}</td>
+              <td style="text-align:center">${1 + cnt}</td>
+              <td>
+                <div style="display:flex;gap:.375rem">
+                  <button onclick='dOpenEdit(${JSON.stringify(kk).replace(/'/g, "&#39;")})' class="d-btn-ghost" style="font-size:.75rem;padding:.375rem .625rem">Edit</button>
+                  <button onclick="dHapusKK('${kk.nokk}')" style="padding:.375rem .625rem;font-size:.75rem;border-radius:.5rem;background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);cursor:pointer">Hapus</button>
+                </div>
+              </td>
+            </tr>`;
+            })
+            .join("");
+        }
+        lucide.createIcons();
+      }
+
+      function dFilterDaftar() {
+        dRenderDaftar();
+      }
+
+      // Hapus KK
+      async function dHapusKK(nokk) {
+        if (
+          !confirm(
+            "Hapus data KK " +
+              nokk +
+              " beserta seluruh anggotanya?\nTindakan ini tidak dapat dibatalkan!",
+          )
+        )
+          return;
+        const r = await dApiCall({ action: "hapus_kk", nokk });
+        if (r && r.success) {
+          dShowToast("Data KK berhasil dihapus");
+          dRefreshData();
+        } else {
+          dShowToast(r?.message || "Gagal menghapus", true);
+        }
+      }
+
+      // Edit KK
+      function dOpenEdit(kk) {
+        dEditTarget = kk;
+        const idEl = document.getElementById("d-edit-id");
+        const namaEl = document.getElementById("d-edit-nama");
+        const nikEl = document.getElementById("d-edit-nik");
+        const pendEl = document.getElementById("d-edit-pend");
+        const wilayahEl = document.getElementById("d-edit-wilayah");
+        const gdriveEl = document.getElementById("d-edit-gdrive");
+        const gdriveKtpEl = document.getElementById("d-edit-gdrive-ktp");
+
+        if (idEl) idEl.value = kk.id;
+        if (namaEl) namaEl.value = kk.nama_kk;
+        if (nikEl) nikEl.value = kk.nik_kk;
+        if (pendEl) pendEl.value = kk.pendidikan;
+        if (wilayahEl) wilayahEl.value = kk.wilayah || "";
+        if (gdriveEl) gdriveEl.value = kk.gdrive_link || "";
+        if (gdriveKtpEl) gdriveKtpEl.value = kk.gdrive_ktp_link || "";
+
+        dSelectedJK["d-edit-jk"] = kk.jenis_kelamin;
+        ["d-edit-jk-L", "d-edit-jk-P"].forEach((id) => {
+          const btn = document.getElementById(id);
+          if (btn)
+            btn.classList.toggle(
+              "selected",
+              id.endsWith("-" + kk.jenis_kelamin),
+            );
+        });
+
+        const modal = document.getElementById("d-modal-edit");
+        if (modal) modal.style.display = "flex";
+        lucide.createIcons();
+      }
+
+      async function dSaveEdit() {
+        const btn = document.getElementById("d-btn-edit-save");
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Menyimpan...";
+        }
+
+        const r = await dApiCall({
+          action: "update_kk",
+          data: {
+            id: document.getElementById("d-edit-id")?.value || "",
+            nama_kk: document.getElementById("d-edit-nama")?.value.trim() || "",
+            nik_kk: document.getElementById("d-edit-nik")?.value.trim() || "",
+            jenis_kelamin: dGetJK("d-edit-jk"),
+            pendidikan: document.getElementById("d-edit-pend")?.value || "",
+            wilayah:
+              document.getElementById("d-edit-wilayah")?.value.trim() || "",
+            gdrive_link:
+              document.getElementById("d-edit-gdrive")?.value.trim() || "",
+            gdrive_ktp_link:
+              document.getElementById("d-edit-gdrive-ktp")?.value.trim() || "",
+          },
+        });
+
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Simpan Perubahan";
+        }
+
+        if (r && r.success) {
+          dShowToast("Data berhasil diperbarui");
+          dCloseModalEdit();
+          dRefreshData();
+        } else {
+          dShowToast(r?.message || "Gagal memperbarui data", true);
+        }
+      }
+
+      function dCloseModalEdit() {
+        const modal = document.getElementById("d-modal-edit");
+        if (modal) modal.style.display = "none";
+        dEditTarget = null;
+      }
+
+      // Detail modal
+      function dShowDetail(kk) {
+        const anggota =
+          kk.anggota || dAngData.filter((a) => a.nokk === kk.nokk);
+        const modalContent = document.getElementById("d-modal-content");
+        if (modalContent) {
+          modalContent.innerHTML = `
+            <div style="display:flex;flex-direction:column;gap:1rem;font-size:.875rem">
+              <div style="border-radius:.75rem;padding:1rem;background:var(--gold-dim2);border:1px solid var(--border)">
+                <p style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;font-weight:700;color:var(--text-dim)">Kepala Keluarga</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1rem">
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">Nama</p><p style="font-weight:600">${kk.nama_kk}</p></div>
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">No. KK</p><p class="d-mono">${kk.nokk}</p></div>
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">NIK</p><p class="d-mono">${kk.nik_kk}</p></div>
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">JK</p><p>${kk.jenis_kelamin === "L" ? "Laki-laki" : "Perempuan"}</p></div>
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">Pendidikan</p><p>${kk.pendidikan}</p></div>
+                  <div><p style="font-size:.7rem;color:var(--text-dim)">Wilayah</p><p>${kk.wilayah || "—"}</p></div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.75rem">
+                  ${kk.gdrive_link ? `<a href="${kk.gdrive_link}" target="_blank" style="display:inline-flex;align-items:center;gap:.375rem;font-size:.75rem;font-weight:600;color:var(--gold)"><i data-lucide="external-link" style="width:13px;height:13px"></i>Buka Berkas KK</a>` : ""}
+                  ${kk.gdrive_ktp_link ? `<a href="${kk.gdrive_ktp_link}" target="_blank" style="display:inline-flex;align-items:center;gap:.375rem;font-size:.75rem;font-weight:600;color:var(--gold)"><i data-lucide="id-card" style="width:13px;height:13px"></i>Buka KTP</a>` : ""}
+                </div>
+              </div>
+              ${
+                anggota.length
+                  ? `
+              <div>
+                <p style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;font-weight:700;color:var(--text-dim)">Anggota (${anggota.length} orang)</p>
+                <div style="display:flex;flex-direction:column;gap:.5rem">
+                  ${anggota
+                    .map(
+                      (a) => `
+                  <div style="display:flex;align-items:center;gap:.75rem;padding:.75rem;border-radius:.75rem;background:var(--gold-dim2)">
+                    <div style="width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.875rem;flex-shrink:0;background:var(--gold-dim);color:var(--gold)">${a.nama_anggota?.[0] || "?"}</div>
+                    <div style="flex:1;min-width:0">
+                      <p style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.nama_anggota}</p>
+                      <p style="font-size:.75rem;color:var(--text-dim)">${a.hubungan} · ${a.jenis_kelamin === "L" ? "Laki-laki" : "Perempuan"} · NIK: ${a.nik_anggota}</p>
+                      ${a.pendidikan ? `<p style="font-size:.75rem;color:var(--text-dim)">${a.pendidikan}</p>` : ""}
+                    </div>
+                  </div>`,
+                    )
+                    .join("")}
+                </div>
+              </div>`
+                  : `<p style="font-size:.75rem;color:var(--text-dim)">Belum ada anggota yang ditambahkan</p>`
+              }
+            </div>`;
+        }
+        const modal = document.getElementById("d-modal");
+        if (modal) modal.style.display = "flex";
+        lucide.createIcons();
+      }
+
+      function dCloseModal() {
+        const modal = document.getElementById("d-modal");
+        if (modal) modal.style.display = "none";
+      }
+
+      // Theme
+      function dToggleTheme() {
+        const dash = document.getElementById("page-dashboard");
+        if (dash) {
+          const isLight = dash.classList.toggle("light-mode");
+          localStorage.setItem("d-theme", isLight ? "light" : "dark");
+          const icon = document.getElementById("d-theme-icon");
+          const label = document.getElementById("d-theme-label");
+          if (icon) icon.setAttribute("data-lucide", isLight ? "moon" : "sun");
+          if (label) label.textContent = isLight ? "Mode Gelap" : "Mode Terang";
+          lucide.createIcons();
+        }
+      }
+
+      // Logout
+      function doLogout() {
+        if (
+          !confirm(
+            "Keluar dari aplikasi?\nSemua data tersimpan di Google Spreadsheet dan tidak akan hilang.",
+          )
+        )
+          return;
+        sessionStorage.removeItem("logged_in");
+        sessionStorage.removeItem("username");
+        dKkData = [];
+        dAngData = [];
+        dStats = {};
+        dShowToast("Berhasil logout. Sampai jumpa!");
+        setTimeout(() => showLanding(), 1200);
+      }
+
+      // Toast
+      let dToastTimer;
+      function dShowToast(msg, isError = false) {
+        const t = document.getElementById("d-toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.className = "d-fade-in " + (isError ? "error" : "");
+        t.id = "d-toast";
+        t.style.display = "block";
+        clearTimeout(dToastTimer);
+        dToastTimer = setTimeout(() => {
+          if (t) t.style.display = "none";
+        }, 3500);
+      }
+
+      // Init
+      window.addEventListener("DOMContentLoaded", () => {
+        if (sessionStorage.getItem("logged_in") === "1") {
+          showDashboard();
+        } else {
+          showLanding();
+          feather.replace();
+          lucide.createIcons();
+        }
+
+        // Attach modal backdrop close
+        const modal = document.getElementById("d-modal");
+        if (modal) {
+          modal.addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) dCloseModal();
+          });
+        }
+        const modalEdit = document.getElementById("d-modal-edit");
+        if (modalEdit) {
+          modalEdit.addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) dCloseModalEdit();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
